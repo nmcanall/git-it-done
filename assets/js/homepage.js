@@ -9,14 +9,34 @@ var getUserRepos = function(user) {
     var apiUrl = "https://api.github.com/users/" + user + "/repos";
 
     fetch(apiUrl).then(function(response) {
-        response.json().then(function(data) {
-            displayRepos(data, user);
-        });
+
+        // Check if user exists
+        if(response.ok) {
+            response.json().then(function(data) {
+                displayRepos(data, user);
+            });
+        }
+
+        // If user does not exist, display an error message
+        else {
+            alert("Error: " + response.statusText);
+        }
+    })
+
+    // Check if there is a network connection error with GitHub
+    .catch(function(error) {
+        alert("Unable to connect to GitHub");
     });
 }
 
-// Helper method to display the repos of a given username
+// Display the repos of a given username to the webpage
 var displayRepos = function(repos, searchTerm) {
+    // Check if the user has any repos; if not, display a message and exit
+    if(repos.length === 0) {
+        repoContainerEl.textContent = "No repositories found.";
+        return;
+    }
+
     // Clear old data
     repoContainerEl.textContent = "";
     repoSearchTerm.textContent = searchTerm;
