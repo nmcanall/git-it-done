@@ -1,4 +1,5 @@
 var issuesContainerEl = document.querySelector("#issues-container");
+var limitWarningEl = document.querySelector("#limit-warning");
 
 // API function to fetch data for a particular user from GitHub
 var getRepoIssues = function(repo) {
@@ -10,6 +11,11 @@ var getRepoIssues = function(repo) {
         if(response.ok) {
             response.json().then(function(data) {
                 displayIssues(data);
+
+                // Check if API has paginated issues
+                if(response.headers.get("Link")) {
+                    displayWarning(repo);
+                }
             });
         }
 
@@ -61,4 +67,17 @@ var displayIssues = function(issues) {
     }
 }
 
-getRepoIssues("nmcanall/taskinator");
+var displayWarning = function(repo) {
+    limitWarningEl.textContent = "To see more than 30 issues, visit ";
+
+    // Build link to add to limit warning
+    var linkEl = document.createElement("a");
+    linkEl.textContent = "GitHub.com";
+    linkEl.setAttribute("href", "https://github.com/" + repo + "/issues");
+    linkEl.setAttribute("target", "_blank");
+
+    // Add the link
+    limitWarningEl.appendChild(linkEl);
+};
+
+getRepoIssues("nmcanall/git-it-done");
