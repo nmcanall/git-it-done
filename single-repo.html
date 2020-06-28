@@ -12,17 +12,22 @@
 <body class="flex-column min-100-vh">
   <header class="hero">
     <h1 class="app-title">Showing Issues for: <span id="repo-name"></span></h1>
-    
     <div>
       <a href="./index.html" class="btn-back">
         Go Back
       </a>
     </div>
-    
   </header>
-  
+
   <main>
-  
+    <h2 class="subtitle">Showing Issues for: <span id="repo-name"></span></h2>
+    <div class="list-group" id="issues-container">
+        <!-- list items for each issue will be created in single.js -->
+    </div>
+    <div id="limit-warning">
+        <!-- If repo has more than 30 issues, JS will display a warning here -->
+    </div>
+    <script src="./assets/js/single.js"></script>
   </main>
 
 </body>
