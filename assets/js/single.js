@@ -1,5 +1,6 @@
 var issuesContainerEl = document.querySelector("#issues-container");
 var limitWarningEl = document.querySelector("#limit-warning");
+var repoNameEl = document.querySelector("#repo-name");
 
 // API function to fetch data for a particular user from GitHub
 var getRepoIssues = function(repo) {
@@ -80,4 +81,12 @@ var displayWarning = function(repo) {
     limitWarningEl.appendChild(linkEl);
 };
 
-getRepoIssues("nmcanall/git-it-done");
+// Function to get the repo name once a repo is selected, then add it to query selector
+var getRepoName = function() {
+    var repoName = document.location.search.split("=")[1];
+    repoNameEl.textContent = repoName;
+    getRepoIssues(repoName);
+};
+
+getRepoName();
+// getRepoIssues("nmcanall/git-it-done");

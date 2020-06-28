@@ -44,12 +44,13 @@ var displayRepos = function(repos, searchTerm) {
     // Loop through all repos to pull appropriate data
     for(var i = 0; i < repos.length; i++) {
 
-        // Create a container for the current repo
-        var repoEl = document.createElement("div");
-        repoEl.classList = "list-item flex-row justify-space-between align-center";
-
         // Repo name portion of the list item
         var repoName = repos[i].owner.login + "/" + repos[i].name;
+
+        // Create a container for the current repo
+        var repoEl = document.createElement("a");
+        repoEl.setAttribute("href", "./single-repo.html?repo=" + repoName);
+        repoEl.classList = "list-item flex-row justify-space-between align-center";
         // Create a span element to hold the repo's name
         var titleEl = document.createElement("span");
         titleEl.textContent = repoName;
