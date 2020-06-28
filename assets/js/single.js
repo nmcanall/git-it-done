@@ -22,7 +22,7 @@ var getRepoIssues = function(repo) {
 
         // If user does not exist, display an error message
         else {
-            alert("Error: " + response.statusText);
+            document.location.replace("./index.html");
         }
     })
 
@@ -84,8 +84,13 @@ var displayWarning = function(repo) {
 // Function to get the repo name once a repo is selected, then add it to query selector
 var getRepoName = function() {
     var repoName = document.location.search.split("=")[1];
-    repoNameEl.textContent = repoName;
-    getRepoIssues(repoName);
+    if(repoName) {
+        repoNameEl.textContent = repoName;
+        getRepoIssues(repoName);
+    }
+    else {
+        document.location.replace("./index.html");
+    }
 };
 
 getRepoName();
