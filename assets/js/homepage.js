@@ -29,6 +29,21 @@ var getUserRepos = function(user) {
     });
 }
 
+// Function to show the featured repos
+var getFeaturedRops = function(language) {
+    var apiUrl = "https://api.github.com/search/repositories?q=" + language + "+is:featured&sort=help-wanted-issues";
+    fetch(apiUrl).then(function(response) {
+        if(response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
+            });
+        }
+        else {
+            alert("Error: " + response.statusText);
+        }
+    });
+};
+
 // Display the repos of a given username to the webpage
 var displayRepos = function(repos, searchTerm) {
     // Check if the user has any repos; if not, display a message and exit
